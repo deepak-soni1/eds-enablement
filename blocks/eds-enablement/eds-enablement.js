@@ -1,4 +1,4 @@
-import { fetchPlaceholders } from '../../scripts/placeholders.js';
+import { fetchPlaceholders } from '../../placeholders.js';
 
 export default async function decorate(block) {
   const placeholders = await fetchPlaceholders(window.hlx.codeBasePath);
