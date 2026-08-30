@@ -1,11 +1,10 @@
-import { fetchPlaceholders } from '../../placeholders.js';
+import { fetchPlaceholders } from '../../scripts/aem.js';
 
 export default async function decorate(block) {
-  const placeholders = await fetchPlaceholders(window.hlx.codeBasePath);
+  const placeholders = await fetchPlaceholders();
 
-  // If the source Key is "my-key", the helper normally exposes it as "myKey".
-  const text = placeholders.myKey || 'Fallback text';
-
-  const label = block.querySelector('.label');
-  if (label) label.textContent = text;
+  block.innerHTML = block.innerHTML.replace(
+    /\{\{([^}]+)\}\}/g,
+    (match, key) => placeholders[key.trim()] || match,
+  );
 }
